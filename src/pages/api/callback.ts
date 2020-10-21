@@ -33,5 +33,5 @@ export default async (request: NextApiRequest, response: NextApiResponse): Promi
     path: "/",
   });
 
-  response.redirect("/logged");
+  response.redirect("/protected");
 };

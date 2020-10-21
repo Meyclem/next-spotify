@@ -22,6 +22,12 @@ export const Layout = ({ children, title = "This is the default title" }: Props)
         <p>
           <a href={url}>login</a>
         </p>
+        <p>
+          <a href="/api/logout">logout</a>
+        </p>
+        <p>
+          <a href="/protected">protected</a>
+        </p>
       </nav>
       {children}
       <footer>

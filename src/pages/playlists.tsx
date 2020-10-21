@@ -1,5 +1,4 @@
 // import { GetServerSideProps } from "next";
-import { UserContext } from "../contexts/UserContext";
 import withAuth, { SpotifyUser } from "../components/WithAuth";
 import { NextPage } from "next";
 
@@ -8,15 +7,8 @@ interface Props {
 }
 
 // import * as cookies from "../utils/cookies";
-const Logged: NextPage<Props> = () => {
-  return (
-    <UserContext.Consumer>
-      {(user): JSX.Element => {
-        console.log({ user });
-        return user && <p>Hello: {user.display_name}</p>;
-      }}
-    </UserContext.Consumer>
-  );
+const Playlists: NextPage<Props> = () => {
+  return <p>Playlists</p>;
 };
 
 // export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -29,4 +21,4 @@ const Logged: NextPage<Props> = () => {
 //   };
 // };
 
-export default withAuth(Logged);
+export default withAuth(Playlists);
