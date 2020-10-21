@@ -1,5 +1,4 @@
-// import { GetServerSideProps } from "next";
-import { SpotifyUser } from "../components/WithAuth";
+import { SpotifyUser } from "../types/SpotifyUser";
 import { NextPage, GetServerSidePropsContext } from "next";
 import Cookies from "cookies";
 
@@ -7,7 +6,6 @@ interface Props {
   user: SpotifyUser;
 }
 
-// import * as cookies from "../utils/cookies";
 const Protected: NextPage<Props> = ({ user }) => {
   return (
     <>

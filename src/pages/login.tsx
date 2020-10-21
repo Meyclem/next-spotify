@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { SpotifyUser } from "../components/WithAuth";
+import { SpotifyUser } from "../types/SpotifyUser";
 import url from "../lib/getLoginUrl";
 
 interface Props {

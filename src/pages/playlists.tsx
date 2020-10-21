@@ -1,24 +1,66 @@
-// import { GetServerSideProps } from "next";
-import withAuth, { SpotifyUser } from "../components/WithAuth";
-import { NextPage } from "next";
+import { SpotifyUser } from "../types/SpotifyUser";
+import { NextPage, GetServerSidePropsContext } from "next";
+import Cookies from "cookies";
 
 interface Props {
-  user?: SpotifyUser;
+  user: SpotifyUser;
+  playlists: {
+    items: {
+      id: string;
+      name: string;
+    }[];
+  };
 }
 
-// import * as cookies from "../utils/cookies";
-const Playlists: NextPage<Props> = () => {
-  return <p>Playlists</p>;
+const Playlists: NextPage<Props> = ({ user, playlists }) => {
+  console.log(playlists);
+  return (
+    <>
+      <h1>Playlists</h1>
+      <p>Welcome {user && user.display_name}</p>
+      <iframe
+        src="https://open.spotify.com/embed/playlist/4xDQj2UgpW3T83rcuuWrqz"
+        width="300"
+        height="380"
+        frameBorder="0"
+        allow="encrypted-media"
+      ></iframe>
+
+      <ul>
+        {playlists.items.map((playlist) => {
+          return <li key={playlist.id}>{playlist.name}</li>;
+        })}
+      </ul>
+    </>
+  );
 };
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const token = cookies.get(context, "access_token");
-//   console.log({ token });
-//   // const { access_token } = cookie;
-//   // console.log(access_token);
-//   return {
-//     props: {}, // will be passed to the page component as props
-//   };
-// };
+function getToken(context: GetServerSidePropsContext): string | undefined {
+  const cookies = new Cookies(context.req, context.res);
+  return cookies.get("spot-next");
+}
 
-export default withAuth(Playlists);
+export const getServerSideProps = async (context: GetServerSidePropsContext): Promise<unknown> => {
+  const accessToken = getToken(context);
+  if (accessToken) {
+    const [user, playlists] = await Promise.all([
+      await fetch("https://api.spotify.com/v1/me", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }).then(async (res) => res.json()),
+      await fetch("https://api.spotify.com/v1/me/playlists", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }).then(async (res) => res.json()),
+    ]);
+    return { props: { user, playlists } };
+  } else {
+    context.res.writeHead(307, { Location: "/login" }).end();
+  }
+};
+
+export default Playlists;
