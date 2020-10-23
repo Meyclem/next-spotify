@@ -1,4 +1,5 @@
 export type SpotifyUser = {
+  accessToken: string;
   display_name: string;
   email?: string;
   explicit_content?: Record<string, unknown>;

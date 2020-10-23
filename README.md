@@ -1,28 +1,20 @@
-# NextJs TypeScript Boilerplate
+# Spotify Next
 
-This is a bare simple NextJs TS boilerplate. Feel free to clone it and use it as you want.
-
-## Dependencies
-
-It comes with some packages pre-installed:
-- [NextJs](https://nextjs.org/)
-- [TypeScript](https://www.typescriptlang.org/docs/home.html)
-- [eslint](https://eslint.org/)
-- [prettier](https://prettier.io/)
+This is a NextJS App using:
+- [Spotify web playback SDK](https://developer.spotify.com/documentation/web-playback-sdk/)
+- [Spotify web API](https://developer.spotify.com/documentation/web-api/)
 
 ## Usage
 
 ### Installation
 
-This project uses node `14.4.0` and yarn `1.22.4`.
-You can manuall install them or use [asdf](https://github.com/asdf-vm/asdf).
-
 ```bash
 asdf install
 yarn install
+cp .env.local.sample .env.local
 ```
 
-### Start the main file
+### Start
 
 ```bash
 # Development mode
@@ -32,13 +24,13 @@ yarn dev
 yarn start
 ```
 
-### Build the project
+### Build
 
 ```bash
 yarn build
 ```
 
-### Linter
+### Lint
 
 You can use eslint to help you format your code.
 

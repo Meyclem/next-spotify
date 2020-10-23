@@ -1,38 +1,41 @@
 import React, { ReactNode } from "react";
 import Head from "next/head";
 import url from "../lib/getLoginUrl";
-import { UserProvider } from "../contexts/UserContext";
+import { UserProvider, useUser } from "../contexts/UserContext";
 
 type Props = {
   children?: ReactNode;
   title?: string;
 };
 
-// const logout = () => {
-//   const { user, setUser } = useUser();
-// }
+const Links = (): JSX.Element => {
+  const { user } = useUser();
 
-const Links = () => {
   return (
     <nav>
       <p>
         <a href="/">home</a>
       </p>
-      <p>
-        <a href={url}>login</a>
-      </p>
-      <p>
-        <a href="/api/logout">logout</a>
-      </p>
-      <p>
-        <a href="/protected">protected</a>
-      </p>
-      <p>
-        <a href="/player">player</a>
-      </p>
-      <p>
-        <a href="/playlists">playlists</a>
-      </p>
+      {user ? (
+        <>
+          <p>
+            <a href="/api/logout">logout</a>
+          </p>
+          <p>
+            <a href="/protected">protected</a>
+          </p>
+          <p>
+            <a href="/player">player</a>
+          </p>
+          <p>
+            <a href="/playlists">playlists</a>
+          </p>
+        </>
+      ) : (
+        <p>
+          <a href={url}>login</a>
+        </p>
+      )}
     </nav>
   );
 };
@@ -47,10 +50,6 @@ export const Layout = ({ children, title = "This is the default title" }: Props)
       </Head>
       <Links />
       {children}
-      <footer>
-        <hr />
-        <span>I'm here to stay (Footer)</span>
-      </footer>
     </UserProvider>
   );
 };

@@ -5,8 +5,6 @@ export default async (request: NextApiRequest, response: NextApiResponse): Promi
   const cookies = new Cookies(request, response);
   const accessToken = cookies.get("spot-next");
 
-  console.log("from get user info", accessToken);
-
   const res = await fetch("https://api.spotify.com/v1/me", {
     method: "GET",
     headers: {
